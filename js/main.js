@@ -20,19 +20,25 @@
 		const cakeArray = [];
 
 		let resizeTimer;
+		let cakeWidth = Math.min(canvas.width / 10, 150);
 
 		class Cake {
-			constructor(x, y) {
+			constructor(x, y, rows) {
+				this.rows = rows;
 				this.x = x;
-				this.y = y;
+				this.y = canvas.height / 4 * y;
 				this.draw();
 			}
 
 			draw() {
-				if (this.y < -150) {
-					this.y = canvas.height / 4 * (rows - 1) + 25;
+				if (this.y < -cakeWidth) {
+					this.y = canvas.height / 4 * rows - cakeWidth;
 				}
-				context.drawImage(canvas.offCanvas, this.x + 75, this.y + 25, 150, 150);
+				if (this.rows === 'odd') {
+					context.drawImage(canvas.offCanvas, canvas.width / 5 * this.x + (canvas.width / 10 - cakeWidth / 2), this.y, cakeWidth, cakeWidth);
+				} else {
+					context.drawImage(canvas.offCanvas, canvas.width / 5 * this.x + canvas.width / 5 + (canvas.width / 10 - cakeWidth / 2), this.y, cakeWidth, cakeWidth);
+				}
 			}
 		}
 
@@ -40,23 +46,20 @@
 		imgElem.src = './images/img-birthday-cake.png';
 		imgElem.addEventListener('load', () => {
 			canvas.offContext.drawImage(imgElem, 0, 0);
-
-			const unitW = canvas.width / 5;
-			const unitH = canvas.height / 4;
-
+		
 			let x, y;
 			for (let i = 1; i <= rows; i++) {
 				if (i % 2 != 0) {
 					for (let j = 0; j < 3; j++) {
-						x = unitW * j * 2;
-						y = unitH * (i - 1);
-						cakeArray.push(new Cake(x, y));
+						x = j * 2;
+						y = (i - 1);
+						cakeArray.push(new Cake(x, y, 'odd'));
 					}
 				} else {
 					for (let j = 0; j < 2; j++) {
-						x = unitW * j * 2 + unitW;
-						y = unitH * (i - 1);
-						cakeArray.push(new Cake(x, y));
+						x = j * 2;
+						y = (i - 1);
+						cakeArray.push(new Cake(x, y, 'even'));
 					}
 				}
 			}
@@ -66,6 +69,7 @@
 		window.addEventListener('resize', function() {
 			clearTimeout(resizeTimer);
 			resizeTimer = setTimeout(function() {
+				resize();
 			}, 0.5);
 		});
 
@@ -93,6 +97,12 @@
 			}
 
 			requestAnimationFrame(update);
+		}
+
+		function resize() {
+			canvas.width = canvasWrap.offsetWidth;
+			canvas.height = canvasWrap.offsetHeight;
+			cakeWidth = Math.min(canvas.width / 10, 150);
 		}
 	}
 })();
