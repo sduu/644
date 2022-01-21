@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" href="./css/style.css" />
+	<script src="./libs/gsap.min.js"></script>
+	<script src="./libs/ScrollTrigger.min.js"></script>
+	<script src="./js/main.js" defer></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="cursor-wrap">
+			<div class="cursor"></div>
+		</div>
+
+		<header class="header">
+			<nav class="gnb-wrap">
+				<a href="#">ABOUT</a>
+				<a href="#">MISSION</a>
+				<a href="#">WORK</a>
+				<a href="#">SHOP</a>
+			</nav>
+			<div class="logo-wrap">
+				<h1>LOGO<br />Text</h1>
+			</div>
+			<div class="lang-wrap">
+				<span>(EN)</span>
+			</div>
+		</header>
+		<main class="main">
+			<section class="sec sec-1">
+				<div class="inner">
+					<div class="bg">
+						<canvas id="stage"></canvas>
+					</div>
+					<div class="rect">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 1200">
+							<rect x="0" y="0" width="620" height="1200" fill="#ffbb00" stroke="#000" stroke-width="1" />
+						</svg>
+					</div>
+					<h2 class="title">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140">
+							<g fill="#000" transform="translate(12, 0)">
+								<text x="0" y="80" font-size="94">123</text>
+								<circle cx="80" cy="120" r="15"/>
+							</g>
+						</svg>
+					</h2>
+				</div>
+			</section>
+			<section class="sec sec-2">
+				<div class="rect">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 746 1227">
+						<g fill="none" stroke="#000" stroke-width="1">
+							<path class="st3" d="M1.5,87.1C30.3,88,51.2,82.2,64.8,77c44-16.9,56.7-45.9,104.2-64c20.3-7.8,38.3-10.2,49.8-11.1
+								c102.8,0,205.6,0,308.4,0c12.5,0.7,32.4,3.1,54.5,12c45,18.2,56.7,46.4,99.5,63.2c13.4,5.2,34.3,11.1,63.3,10.1
+								c0.5,380,1,759.9,1.5,1139.9H0L1.5,87.1z"/>
+							<path class="st3" d="M13.5,96.1c27.8,0.8,48.1-4.7,61.3-9.8c42.6-16.4,54.9-44.4,100.8-62c19.7-7.5,37.1-9.9,48.2-10.8
+								c99.5,0,199,0,298.5,0c12.1,0.7,31.3,3,52.7,11.6c43.6,17.6,54.9,44.9,96.3,61.1c13,5.1,33.2,10.7,61.3,9.8
+								c0.5,367.7,1,735.5,1.5,1103.2H12L13.5,96.1z"/>
+						</g>
+					</svg>
+				</div>
+				<div class="text a marquee-wrap">
+					<div class="marquee-inner">
+						<span>SCROLL DOWN</span>
+					</div>
+				</div>
+				<p class="text b">Nunc vulputate turpis non eros <br />Nulla nunc diam, venenatis eu laoreet.</p>
+				<p class="text c">Mauris ut sapien magna. In laoreet dolor.</p>
+			</section>
+			<section class="sec sec-3">
+				<div class="inner">
+					<p class="text a">Maecenas et nunc <br />sapien tristique</p>
+					<h3 class="tit-cate">ABOUT</h3>
+					<p class="tit-text">Fusce interdum <br />sed sem non vulputate <br />Sed eget.</p>
+					<p class="text b">Aenean fringilla id <br />id gravida. Etiam <br />imperdiet, nisi</p>
+					<div class="deco a"></div>
+					<div class="about-wrap">
+						<div class="about-item">
+							<div class="about-front">
+								Front Side
+							</div>
+							<div class="about-back">
+								Back Side
+								<button class="btn-close" type="button">close</button>
+							</div>
+						</div class="about">
+						<button class="btn-about" type="button">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196 196">
+								<circle cx="98" cy="98" r="70" fill="none" stroke="none" stroke-width="1" />
+								<text font-size="20">
+									<tspan x="71" y="90">Button</tspan>
+									<tspan x="84" y="115">Flip</tspan>
+								</text>
+								<path id="pathCircle" d="M 80,0 A 80,80 0 0 1 -80,0 A 80,80 0 0 1 80,0" transform="translate(98, 98)" fill="none" stroke="none" stroke-width="0"/>
+								<g class="txt-wrap">
+									<path d="M -82.68415994161488 7.233926648055667 A 83 83 0 0 0 82.68415994161488 7.233926648055628" transform="translate(98, 98)" fill="none" stroke="#000" stroke-width="1"/>
+									<text dy="0" font-size="16">
+										<textPath xlink:href="#pathCircle" startOffset="50%">Flip Button Text Flip Button Text Ok</textPath>
+									</text>
+								</g>
+							</svg>
+						</button>
+					</div>
+					<div class="deco b"></div>
+				</div>
+			</section>
+			<section class="sec sec-4">
+				<div class="inner">
+					<h3 class="tit-cate">MISSION</h3>
+					<p class="tit-text">Nam vulputate <br />tincidunt neque, <br />ut dapibus.</p>
+					<div class="tag-wrap">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+				<div class="marquee-wrap">
+					<div class="marquee-item">
+						<p>MARQUEE TEXT FLOW <span>🤫</span> MARQUEE TEXT FLOW <span>🤫</span> MARQUEE TEXT FLOW <span>🤫</span> MARQUEE TEXT FLOW <span>🤫</span> MARQUEE TEXT FLOW <span>🤫</span> </p>
+					</div>
+				</div>
+			</section>
+			<section class="sec-5">
+				<div class="box a">
+					<h3 class="tit-cate">WORK</h3>
+					<strong>TORAPIYO</strong>
+					<p class="text">Aenean fringilla id purus</p>
+					<div class="cont a">
+						<img src="./images/img-torapiyo.png" alt="">
+					</div>
+					<button class="btn" type="button">SHOP</button>
+				</div>
+				<div class="box b">
+					<strong>UDEKUMI</strong>
+					<p class="text">Aenean fringilla id purus</p>
+					<div class="cont b">
+						<img src="./images/img-udekumi-harinezumi.png" alt="">
+					</div>
+					<button class="btn" type="button">SHOP</button>
+				</div>
+				<div class="box c">
+					<strong>PENGUIN</strong>
+					<p class="text">Aenean fringilla id purus</p>
+					<div class="cont c">
+						<img src="./images/img-dance-penguin.png" alt="">
+					</div>
+					<button class="btn" type="button">SHOP</button>
+				</div>
+			</section>
+			<section class="sec-6">
+				<h3 class="logo">123</h3>
+				<p class="tit-text">Proin ac velit a nisl <br />efficitur aliquam</p>
+				<div class="box">
+					<button class="btn" type="button">SHOP</button>
+				</div>
+				<p class="text">Etiam imperdiet, nisi <br />Aenean fringilla id purus id gravida.</p>
+			</section>
+		</main>
+		<footer class="footer">
+			<div class="text a">
+				<p>Donec dapibus est non <br />dui sodales vulputate. In et</p>
+			</div>
+			<div class="text b">
+				<span>FOOTER TEXT</span>
+			</div>
+		</footer>
+
+		<div class="top-wrap">
+			<button type="button" class="btn-top marquee-wrap">
+				<div class="marquee-item">
+					<span>BACK TO </span>TOP
+				</div>
+			</button>
+		</div>
+	</div>
+</body>
+</html>
