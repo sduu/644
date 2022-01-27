@@ -2,6 +2,8 @@ const canvas = document.querySelector('#stage');
 const canvasWrap = canvas.parentNode || canvas;
 const context = canvas.getContext('2d');
 
+const marqueeArray = [];
+
 let resizeTimer;
 
 const background = (function() {
@@ -11,7 +13,7 @@ const background = (function() {
 
 	let isAnimate = false;
 	
-	var init = function(){
+	const init = function(){
 		canvas.width = canvasWrap.offsetWidth;
 		canvas.height = canvasWrap.offsetHeight;
 
@@ -24,7 +26,7 @@ const background = (function() {
 		resize();
 	};
 
-	var setItem = function() {
+	const setItem = function() {
 		const imgElem = new Image();
 		imgElem.src = './images/img-birthday-cake.png';
 		imgElem.addEventListener('load', () => {
@@ -49,7 +51,7 @@ const background = (function() {
 		});
 	};
 
-	var drawBoard = function (){
+	const drawBoard = function (){
 		for (let x = 0; x <= canvas.width; x += canvas.width / 5) {
 			context.moveTo(0.5 + x, 0);
 			context.lineTo(0.5 + x, canvas.height);
@@ -62,7 +64,7 @@ const background = (function() {
 		context.stroke();
 	};
 
-	var update = function() {
+	const update = function() {
 		if (!isAnimate) {
 			return false;
 		}
@@ -79,16 +81,16 @@ const background = (function() {
 		requestAnimationFrame(update);
 	};
 
-	var playAnimation = function() {
+	const playAnimation = function() {
 		isAnimate = true;
 		update();
 	};
 
-	var pauseAnimation = function() {
+	const pauseAnimation = function() {
 		isAnimate = false;
 	};
 
-	var resize = function() {
+	const resize = function() {
 		canvas.width = canvasWrap.offsetWidth;
 		canvas.height = canvasWrap.offsetHeight;
 		itemWidth = Math.min(canvas.width / 10, 150);
@@ -104,7 +106,7 @@ const background = (function() {
 
 		draw() {
 			if (this.y < -itemWidth) {
-				this.y = canvas.height / 4 * line - itemWidth;
+				this.y = canvas.height / 4 * rows - itemWidth;
 			}
 			if (this.line === 'odd') {
 				context.drawImage(canvas.offCanvas, canvas.width / 5 * this.x + (canvas.width / 10 - itemWidth / 2), this.y, itemWidth, itemWidth);
@@ -122,9 +124,50 @@ const background = (function() {
 	};
 })();
 
+const marquee = function(el, option) {
+	const target = el;
+	const inner = el.querySelector('.marquee-item');
+	const options = option;
+	const timeline = gsap.timeline();
+
+	inner.appendChild(inner.firstElementChild.cloneNode(true));
+
+	if (options.type === 'horizontal') {
+		target.classList.add('horizon');
+
+		timeline.fromTo(inner, {x: (i, t) => options.direction === 'right' ? -t.firstElementChild.offsetWidth : 0}, {
+			repeat: -1,
+			ease: Linear.easeNone,
+			duration: 30,
+			x: (i, t) => options.direction === 'right' ? 0 : -t.firstElementChild.offsetWidth,
+		});
+	} else {
+		target.style.height = `${inner.firstElementChild.offsetHeight}px`;
+
+		timeline.fromTo(inner, {y: (i, t) => options.direction === 'down' ? -t.firstElementChild.offsetHeight : 0}, {
+			repeat: -1,
+			ease: Linear.easeNone,
+			duration: 1,
+			y: (i, t) => options.direction === 'down' ? 0 : -t.firstElementChild.offsetHeight,
+		});
+	}
+
+	timeline.pause();
+
+	return timeline;
+}
+
 /* init */
+gsap.registerPlugin(ScrollTrigger);
 background.init();
 background.play();
+document.querySelectorAll('.marquee-wrap').forEach(function(item, i) {
+	marqueeArray[i] = marquee(item, {
+		type: item.getAttribute('data-marquee').split(' ')[0],
+		direction: item.getAttribute('data-marquee').split(' ')[1],
+	});
+});
+marqueeArray[0].play();
 
 /* add event */
 window.addEventListener('resize', function() {

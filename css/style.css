@@ -13,6 +13,11 @@ body {margin: 0; color: #000; font-family: 'Noto Sans', 'Apple SD Gothic Neo', A
 .wrapper {width: 100%; overflow-x: hidden;}
 
 /* style */
+.marquee-wrap {position: relative; overflow: hidden;}
+.marquee-wrap .marquee-item {white-space: nowrap; font-size: 0;}
+.marquee-wrap .marquee-item p {font-size: 2rem;}
+.marquee-wrap.horizon .marquee-item p {display: inline-block;}
+
 .cursor-wrap {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none;}
 .cursor-wrap .cursor {position: absolute; top: -15px; left: -15px; width: 15px; height: 15px; border-radius: 100%; background: red;}
 
@@ -21,6 +26,7 @@ body {margin: 0; color: #000; font-family: 'Noto Sans', 'Apple SD Gothic Neo', A
 .top-wrap .btn-top span {opacity: 0;}
 .top-wrap .btn-top > div {padding-right: 20px;}
 .top-wrap .btn-top > div:after {content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 20px; background: url('../images/icon-arrow-up.png') no-repeat 0 0; background-size: 100% auto;}
+.top-wrap .marquee-item p {font-size: 1.8rem;}
 
 .header {display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 120px; padding: 0 5.4rem; font-size: 1.8rem; box-sizing: border-box; opacity: 0; z-index: 10;}
 .header .gnb-wrap a + a {margin-left: 10px;}
@@ -76,9 +82,8 @@ body {margin: 0; color: #000; font-family: 'Noto Sans', 'Apple SD Gothic Neo', A
 .main .sec-4 .tag-wrap > div:nth-child(1) {transform: rotate(-10deg);}
 .main .sec-4 .tag-wrap > div:nth-child(2) {transform: rotate(10deg);}
 .main .sec-4 .tag-wrap > div:nth-child(3) {transform: rotate(-10deg);}
-.main .sec-4 .marquee-wrap {position: relative; top: 200px;}
-.main .sec-4 .marquee-item {white-space: nowrap; font-size: 0;}
-.main .sec-4 .marquee-item p {display: inline-block; font-size: 3rem; font-weight: bold;}
+.main .sec-4 .marquee-wrap {top: 200px;}
+.main .sec-4 .marquee-item p {font-size: 3rem; font-weight: bold;}
 .main .sec-4 .marquee-item span {font-weight: normal;}
 
 .main .sec-5 strong {display: block; text-align: center; font-size: 8rem; font-weight: bold;}
