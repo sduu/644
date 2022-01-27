@@ -48,11 +48,11 @@ body {margin: 0; color: #000; font-family: 'Noto Sans', 'Apple SD Gothic Neo', A
 .main .sec-2 .rect {position: absolute; top: 20%; left: 50%; transform: translate(-50%, 0); width: 30%; min-width: 450px; transform-origin: 50% 0;}
 .main .sec-2 .text {position: absolute; width: 100%; text-align: center;}
 .main .sec-2 .text.a {top: 70%; font-size: 1.8rem; font-weight: bold;}
-.main .sec-2 .text.b {top: 78%; font-size: 1.3rem; font-weight: bold;}
-.main .sec-2 .text.b:before {content: ''; display: block; width: 50px; height: 50px; margin: 0 auto 1.5%; background: url('../images/icon-arrow-long.png') no-repeat 0 0; background-size: 100% auto;}
+.main .sec-2 .text.b {top: 86%; font-size: 1.3rem; font-weight: bold;}
 .main .sec-2 .text.c {top: 92%; font-size: 1.3rem; opacity: 0.6;}
+.main .sec-2 .deco {position: absolute; top: 78%; width: 100%; height: 50px; margin: 0 auto 1.5%; background: url('../images/icon-arrow-long.png') no-repeat center; background-size: 50px auto;}
 
-.main .sec-3 .inner {position: relative; width: 1280px; height: 100%; margin: 0 auto; padding: 10% 0; box-sizing: border-box;}
+.main .sec-3 .inner {position: relative; width: 1280px; height: 100%; margin: 0 auto 0; padding: 10% 0; box-sizing: border-box;}
 .main .sec-3 .text.a {position: absolute; top: 100px; left: 230px; font-size: 2.2rem;}
 .main .sec-3 .text.b {position: absolute; top: 700px; right: 200px; font-size: 1.6rem;}
 .main .sec-3 .text.b:before {content: ''; display: inline-block; width: 12px; height: 12px; margin-right: 8px; border-radius: 100%; background: #333;}

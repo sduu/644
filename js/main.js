@@ -6,6 +6,21 @@ const marqueeArray = [];
 
 let resizeTimer;
 
+const secInfo = [
+	// sec-1
+	{start: '0', end: () => '+=9999', pin: true, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	// sec-2
+	{start: '0', end: '200%', pin: true, pinSpacing: true, scrub: 0.8, timeline: null, num: 0},
+	// sec-3
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	// sec-4
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	// sec-5
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	// sec-6
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+];
+
 const background = (function() {
 	const rows = 6;
 	const itemArray = [];
@@ -160,19 +175,99 @@ const marquee = function(el, option) {
 /* init */
 gsap.registerPlugin(ScrollTrigger);
 background.init();
-background.play();
 document.querySelectorAll('.marquee-wrap').forEach(function(item, i) {
 	marqueeArray[i] = marquee(item, {
 		type: item.getAttribute('data-marquee').split(' ')[0],
 		direction: item.getAttribute('data-marquee').split(' ')[1],
 	});
 });
-marqueeArray[0].play();
+
+/* gsap */
+gsap.utils.toArray('.sec').forEach((item, i) => {
+	secInfo[i].timeline = gsap.timeline({
+		scrollTrigger: {
+			trigger: item,
+			start: secInfo[i].start,
+			end: secInfo[i].end,
+			pin: secInfo[i].pin,
+			pinSpacing: secInfo[i].pinSpacing,
+			scrub: secInfo[i].scrub,
+			//markers: true,
+			onEnter: () => secInfo[i].num ? null : setAnimation(i),
+			onEnterBack: () => secInfo[i].num ? null : setAnimation(i),
+			onUpdate : !secInfo[i].num ? null : ({progress, direction, vars, isActive}) => {
+				if (ex !== Math.trunc(progress * 3)) {
+					ex = Math.trunc(progress * 3);
+					ex === secInfo[i].num ? null : setAnimation(i, ex);
+				}
+			}
+		}
+	});
+});
+
+gsap.from('.header', { 
+	paused: true,
+	duration: 0.5,
+	yPercent: -100,
+	scrollTrigger: {
+		start: () => document.querySelector('.sec-3').offsetTop,
+		end: () => document.body.offsetHeight,
+		onUpdate: (self) => {
+			self.direction === -1 ? self.animation.play() : self.animation.reverse();
+		}
+	}
+}).progress(1);
 
 /* add event */
+window.addEventListener('mousemove', drawCursor);
 window.addEventListener('resize', function() {
 	clearTimeout(resizeTimer);
 	resizeTimer = setTimeout(function() {
 		background.resize();
 	}, 0.5);
 });
+document.querySelector('.about-wrap .btn-about').addEventListener('click', cardOpen);
+document.querySelector('.about-wrap .btn-close').addEventListener('click', cardClose);
+
+/* function */
+function setAnimation(i, a = 0) {
+	switch (i) {
+		case 0:
+			break;
+		case 1:
+			background.play();
+			marqueeArray[0].play();
+			break;
+		case 2:
+			background.pause();
+			marqueeArray[0].pause();
+			marqueeArray[1].pause();
+			break;
+		case 3:
+			marqueeArray[1].play();
+			break;
+		case 4:
+			marqueeArray[1].pause();
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+	}
+}
+
+function drawCursor(e) {
+	gsap.to('.cursor-wrap .cursor', {duration: 0.3, x: (i, t) => e.clientX + t.offsetWidth / 2, y: (i, t) => e.clientY + t.offsetHeight / 2});
+}
+
+function cardOpen() {
+	//gsap.to('.about-item', {duration: 0.6, rotateY: 180, xPercent: 100});
+	document.querySelector('.sec-3 .about-wrap').classList.add('active');
+	gsap.set('.btn-about', {opacity: 0, pointerEvents: 'none'});
+}
+
+function cardClose() {
+	//gsap.to('.about-item', {duration: 0.6, rotateY: 0, xPercent: 0});
+	document.querySelector('.sec-3 .about-wrap').classList.remove('active');
+	gsap.set('.btn-about', {opacity: 1, pointerEvents: 'auto'});
+}
