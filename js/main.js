@@ -207,17 +207,24 @@ gsap.utils.toArray('.sec').forEach((item, i) => {
 });
 
 secInfo[1].timeline.to('.sec-1 .rect', {duration: 1, scale: 3});
-secInfo[1].timeline.to('.sec-2 .rect', {duration: 1, scale: 1.5}, '<');
+secInfo[1].timeline.to('.sec-2 .rect', {duration: 1, scaleX: 1.5, scaleY: 1.63}, '<');
 secInfo[1].timeline.to('.sec-1 .title', {duration: 1, scale: 2.5}, '<');
 secInfo[1].timeline.to('.sec-2 .text.b', {duration: 1, scale: 1.5}, '<');
 secInfo[1].timeline.to('.sec-2 .text.a, .sec-2 .text.c, .sec-2 .deco', {duration: 0.1, opacity: 0}, '<');
 secInfo[1].timeline.to('.sec-2 .rect', {duration: 1, yPercent: -65});
+secInfo[1].timeline.to('.header', {opacity: 1}, '<');
+secInfo[1].timeline.to('.top-wrap', {opacity: 1}, '<');
 secInfo[1].timeline.to('.sec-1 .title g', {duration: 1, fill: '#c9e6f5'}, '<+0.3');
 
 secInfo[2].timeline.fromTo('.sec-3 .tit-cate, .tit-text', {yPercent: 15}, {yPercent: -15});
-secInfo[2].timeline.fromTo('.sec-3 .about-item', {yPercent: 15}, {yPercent: -15}, '<');
+/* secInfo[2].timeline.fromTo('.sec-3 .about-item', {yPercent: 5}, {yPercent: -5}, '<');
+secInfo[2].timeline.to('.sec-3 .about-item', {rotate: -5}, '<'); */
 
 secInfo[3].timeline.fromTo('.tag-wrap div', {yPercent: 15}, {yPercent: -15});
+secInfo[3].timeline.to('.tag-wrap div:nth-child(1)', {rotate: -7}, '<');
+secInfo[3].timeline.to('.tag-wrap div:nth-child(2), .tag-wrap div:nth-child(3)', {rotate: 5}, '<');
+
+
 
 gsap.from('.header', { 
 	paused: true,
@@ -238,7 +245,7 @@ window.addEventListener('resize', function() {
 	clearTimeout(resizeTimer);
 	resizeTimer = setTimeout(function() {
 		background.resize();
-	}, 0.5);
+	}, 0.1);
 });
 document.querySelector('.about-wrap .btn-about').addEventListener('click', cardOpen);
 document.querySelector('.about-wrap .btn-close').addEventListener('click', cardClose);
@@ -283,10 +290,10 @@ function setAnimation(i, a = 0) {
 			break;
 		case 4:
 			marqueeArray[1].pause();
+			gsap.to('.top-wrap .btn-top span', {opacity: 0});
 			break;
 		case 5:
-			break;
-		case 6:
+			gsap.to('.top-wrap .btn-top span', {opacity: 1});
 			break;
 	}
 }
