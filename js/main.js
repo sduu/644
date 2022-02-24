@@ -1,6 +1,7 @@
 const canvas = document.querySelector('#stage');
 const canvasWrap = canvas.parentNode || canvas;
 const context = canvas.getContext('2d');
+const cursor = document.querySelector('.cursor-wrap .cursor');
 
 const marqueeArray = [];
 
@@ -8,17 +9,17 @@ let resizeTimer;
 
 const secInfo = [
 	// sec-1
-	{start: '0', end: () => '+=9999', pin: true, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	{start: '0', end: () => '+=9999', pin: true, pinSpacing: false, scrub: 0.3, timeline: null, num: 0},
 	// sec-2
-	{start: '0', end: '200%', pin: true, pinSpacing: true, scrub: 0.8, timeline: null, num: 0},
+	{start: '0', end: '100%', pin: true, pinSpacing: true, scrub: 0.3, timeline: null, num: 0},
 	// sec-3
-	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.3, timeline: null, num: 0},
 	// sec-4
-	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.3, timeline: null, num: 0},
 	// sec-5
-	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.3, timeline: null, num: 0},
 	// sec-6
-	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.8, timeline: null, num: 0},
+	{start: '0', end: '100%', pin: false, pinSpacing: false, scrub: 0.3, timeline: null, num: 0},
 ];
 
 const background = (function() {
@@ -205,6 +206,19 @@ gsap.utils.toArray('.sec').forEach((item, i) => {
 	});
 });
 
+secInfo[1].timeline.to('.sec-1 .rect', {duration: 1, scale: 3});
+secInfo[1].timeline.to('.sec-2 .rect', {duration: 1, scale: 1.5}, '<');
+secInfo[1].timeline.to('.sec-1 .title', {duration: 1, scale: 2.5}, '<');
+secInfo[1].timeline.to('.sec-2 .text.b', {duration: 1, scale: 1.5}, '<');
+secInfo[1].timeline.to('.sec-2 .text.a, .sec-2 .text.c, .sec-2 .deco', {duration: 0.1, opacity: 0}, '<');
+secInfo[1].timeline.to('.sec-2 .rect', {duration: 1, yPercent: -65});
+secInfo[1].timeline.to('.sec-1 .title g', {duration: 1, fill: '#c9e6f5'}, '<+0.3');
+
+secInfo[2].timeline.fromTo('.sec-3 .tit-cate, .tit-text', {yPercent: 15}, {yPercent: -15});
+secInfo[2].timeline.fromTo('.sec-3 .about-item', {yPercent: 15}, {yPercent: -15}, '<');
+
+secInfo[3].timeline.fromTo('.tag-wrap div', {yPercent: 15}, {yPercent: -15});
+
 gsap.from('.header', { 
 	paused: true,
 	duration: 0.5,
@@ -228,6 +242,27 @@ window.addEventListener('resize', function() {
 });
 document.querySelector('.about-wrap .btn-about').addEventListener('click', cardOpen);
 document.querySelector('.about-wrap .btn-close').addEventListener('click', cardClose);
+document.querySelector('.top-wrap .btn-top').addEventListener('mouseenter', () => marqueeArray[2].play());
+document.querySelector('.top-wrap .btn-top').addEventListener('mouseleave', () => marqueeArray[2].pause().progress(0));
+
+document.querySelectorAll('.btn-wrap').forEach((item) => {
+	const btn = item.querySelector('.btn');
+
+	item.addEventListener('mouseenter', () => {
+		btn.classList.add('active');
+		gsap.to(cursor, {duration: 0.3, scale: 0});
+		gsap.to(btn, {duration: 0.6, opacity: 1});
+	});
+	item.addEventListener('mousemove', (e) => {
+		const offsetTop = item.getBoundingClientRect().top;
+		gsap.to(btn, {duration: 0.3, x: e.clientX - btn.offsetLeft - item.offsetLeft, y: e.clientY - btn.offsetTop - offsetTop});
+	});
+	item.addEventListener('mouseleave', () => {
+		btn.classList.remove('active');
+		gsap.to(btn, {duration: 0.6, x: 0, y: 0, opacity: item.classList.contains('fade-out') ? 0 : 1});
+		gsap.to(cursor, {duration: 0.3, scale: 1});
+	});
+});
 
 /* function */
 function setAnimation(i, a = 0) {
@@ -257,7 +292,7 @@ function setAnimation(i, a = 0) {
 }
 
 function drawCursor(e) {
-	gsap.to('.cursor-wrap .cursor', {duration: 0.3, x: (i, t) => e.clientX + t.offsetWidth / 2, y: (i, t) => e.clientY + t.offsetHeight / 2});
+	gsap.to(cursor, {duration: 0.3, x: (i, t) => e.clientX + t.offsetWidth / 2, y: (i, t) => e.clientY + t.offsetHeight / 2});
 }
 
 function cardOpen() {
